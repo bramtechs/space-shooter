@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import engine.Game;
-import graphics.SpriteLoader;
+import engine.SpriteLoader;
 
 public class Font {
 
@@ -13,7 +13,7 @@ public class Font {
 
 	public Font(int w, int h, String extra) {
 		try {
-			BufferedImage pic = SpriteLoader.loadImage("font/pixelfont_" + extra + ".png");
+			BufferedImage pic = SpriteLoader.getTexture("font/pixelfont_" + extra + ".png");
 			BufferedImage[] pics = loadFont(w, h, pic);
 			letters = new HashMap<Character, BufferedImage>();
 			for (int i = 0; i < pics.length; i++) {
@@ -26,7 +26,6 @@ public class Font {
 	}
 
 	BufferedImage[] loadFont(int w, int h, BufferedImage image) {
-
 		try {
 			int ww = image.getWidth() / w;
 			int hh = image.getHeight() / h;

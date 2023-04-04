@@ -20,13 +20,14 @@ public class Game extends Canvas{
 	
 	public static final int TARGET_FPS = 60;
 	public static final float deltaTime = 1f/TARGET_FPS; //This is horrible
-	public static final Point size = new Point(360, 640);
+	public static final int w = 360;
+	public static final int h = 640;
+	public static Graphics2D g = null;
 
-	public static MasterLoader loader;
+	public static SpriteLoader loader;
 	
 	public static boolean performant = false;
 	public static boolean debug = false;
-	
 	
 	public static float scale = 1.7f;
 	
@@ -45,14 +46,14 @@ public class Game extends Canvas{
 
 	public Game() {
 		BasicMath.setup();
-		new Window(size.x , size.y, this);
+		new Window(w, h, this);
 		
 		//User input
 		Input input = new Input();
 		addMouseListener(input);
 		addKeyListener(input);
 		
-		loader = new MasterLoader();
+		loader = new SpriteLoader();
 		
 		SceneManager.loadMenu();
 		
@@ -79,9 +80,9 @@ public class Game extends Canvas{
 			this.createBufferStrategy(3);
 			return;
 		}
-		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+		g = (Graphics2D) bs.getDrawGraphics();
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, size.x, size.y);
+		g.fillRect(0, 0, w, h);
 		g.scale(scale, scale);
 		////////////////////////
 		state.draw(g);
@@ -100,10 +101,10 @@ public class Game extends Canvas{
 	}
 	
 	private static Dimension getScaledScreenSize() {
-		return new Dimension((int) (size.x * scale), (int) (size.y * scale));
+		return new Dimension((int) (w * scale), (int) (h * scale));
 	}
 
 	public static Point getCenter() {
-		return new Point(size.x/2,size.y/2);
+		return new Point(w/2,h/2);
 	}
 }

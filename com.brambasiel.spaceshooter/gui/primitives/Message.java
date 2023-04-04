@@ -1,13 +1,12 @@
 package gui.primitives;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import engine.Game;
 import gui.fonts.FontLoader;
 import gui.fonts.FontRenderer;
 import objects.GameObject;
-import objects.Handler;
-import objects.ID;
 
 public class Message extends GameObject {
 	
@@ -16,21 +15,21 @@ public class Message extends GameObject {
 	Color col;
 	
 	public Message(String text, Color col) {
-		super(Game.w/2f-text.length()*9,Game.h/2f,ID.GUI);
+		super(Game.w/2f-text.length()*9,Game.h/2f);
 		this.text = text;
 		this.col = col;
 	}
 
 	@Override
-	public void update() {
+	public void update(float delta, float time) {
 		timer += Game.deltaTime;
 		if (timer > 3f) {
-			Handler.obj.deleteObj(this);
+			selfDestruct();
 		}
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Graphics2D graphics) {
 		// TODO Auto-generated method stub
 		FontRenderer.drawText((int)x, (int)y, 18, text, FontLoader.getFont(col));
 	}

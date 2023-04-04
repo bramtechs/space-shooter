@@ -1,55 +1,49 @@
 package gui.primitives;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
-import engine.Game;
-import gui.Widget;
 import gui.fonts.FontLoader;
 import gui.fonts.FontRenderer;
+import objects.GameObject;
 
-public class Label extends Widget{
+public class Label extends GameObject {
 
-	String text;
-	Color col;
+	private String text;
+	private Color col;
 	
-	boolean flash;
-	float timer;
+	private boolean flashes;
+	private float timer;
 	
-	public Label(int x, int y, boolean flash) {
+	public Label(int x, int y) {
 		super(x,y);
-		this.flash = flash;
 	}
 	
-	public void change(String text) {
-		this.text = text;
+	public Label flashes() {
+		this.flashes = true;
+		return this;
 	}
-	public void change(String text, Color c, boolean flash) {
-		this.text = text;
-		this.col = c;
-		this.flash = flash;
-	}
-	
+
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		if (!flash) {
-			timer = 0f;
-			return;
-		}
-		
-		timer +=  Game.deltaTime;
-		if (timer > 1f) {
-			timer = 0f;
+	public void update(float delta, float timePassed) {
+		timer += timePassed;
+		if (timer > 1.0f) {
+			timer = 0.f;
 		}
 	}
 
 	@Override
-	public void draw() {
-		if (text == null) text = " ";
-				
-		if (timer < 0.5f) {
-			FontRenderer.drawText(x, y, 12, text, FontLoader.getFont(col));
+	public void draw(Graphics2D graphics) {
+		if (!flashes || timer < 0.5f) {
+			FontRenderer.drawText((int)x, (int)y, 12, text, FontLoader.getFont(col));
 		}
 	}
 	
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void setColor(Color col) {
+		this.col = col;
+	}
 }

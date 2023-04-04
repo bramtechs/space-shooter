@@ -1,57 +1,69 @@
 package gui.primitives;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
-import engine.Game;
-import gui.Widget;
+import engine.BasicMath;
 import input.Input;
-import input.Mouse;
+import objects.GameObject;
 
-public class Button extends Widget {
+public final class Button extends GameObject<Button> {
+	private int width;
+	private int height;
 
-	String text = "Button";
-	int centerX, centerY;
-	Color normal, hover, outline;
-	boolean pressed = false;
-	
-	public Button(int x, int y, int w, int h, String text, Color normal, Color hover) {
-		super(x,y);
-		this.w = w;
-		this.h = h;
+	private String text;
+	private Color normal, hover, outline;
+
+	private ButtonPressAction action;
+	private boolean isBeingPressed;
+
+	// TODO: Add layout capability so I don't need to enter this by hand
+	public Button(String text, int w, int h) {
+		this.width = w;
+		this.height = h;
 		this.text = text;
+		colors(Color.WHITE, Color.GRAY);
+		link(() -> {
+			System.err.println("Button is not linked.");
+		});
+	}
+
+	public Button colors(Color normal, Color hover) {
 		this.normal = normal;
 		this.hover = hover;
 		this.outline = normal.darker().darker().darker();
+		return this;
 	}
-	
+
+	public Button link(ButtonPressAction action) {
+		this.action = action;
+		return this;
+	}
+
 	@Override
-	public void update() {
+	public void update(float delta, float timePassed) {
 		if (Input.isMouseDown()) {
-			pressed = engine.BasicMath.pointInRect(Input.getMousePosition(), x, y, w, h);
-			if (pressed) {
-				pressed();
+			// TODO: getBounds()
+			if (!isBeingPressed && BasicMath.pointInRect(Input.getMousePosition(), (int) x, (int) y, width, height)) {
+				action.pressed();
+				isBeingPressed = true;
 			}
+		} else {
+			isBeingPressed = false;
 		}
 	}
-	
-	public void pressed() {
-		Game.print("Pressed " + text);
-	}
-	
-	@Override
-	public void draw() {
-		if (pressed)
-			Game.g.setColor(hover);
-		else
-			Game.g.setColor(normal);
-		Game.g.fillRect(x, y, w, h);
 
-		Game.g.setColor(outline);
-		Game.g.drawRect(x, y, w, h);
-		
-		int xx = (int)((x+w/2-text.length()));
-		int yy = (int)(y+h/2);
-		Game.g.setColor(Color.black);
-		Game.g.drawString(text, xx, yy);
+	@Override
+	public void draw(Graphics2D graphics) {
+		graphics.setColor(isBeingPressed ? hover : normal);
+		graphics.fillRect((int) x, (int) y, width, height);
+
+		graphics.setColor(outline);
+		graphics.drawRect((int) x, (int) y, width, height);
+
+		int xx = (int) ((x + width / 2 - text.length()));
+		int yy = (int) (y + height / 2);
+		graphics.setColor(Color.black);
+		graphics.drawString(text, xx, yy);
 	}
 }

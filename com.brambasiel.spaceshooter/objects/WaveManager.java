@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.Game;
-import gui.WidgetManager;
 import gui.primitives.Label;
 import gui.primitives.Message;
 import objects.enemies.CircleDrone;
@@ -18,7 +17,7 @@ import objects.enemies.SmallDrone;
 import objects.enemies.bosses.MegaShip;
 import objects.enemies.bosses.MegaSinusDrone;
 
-public class WaveManager {
+public class WaveManager extends GameObject {
 	
 	public int wave;
 	public Color waveColor;
@@ -181,15 +180,14 @@ public class WaveManager {
 	///////////////////////////////////////////////////////////////
 	
 	//TIMELINE
-	
-	public static void spawn(Enemy e) {
+	public void spawn(Enemy e) {
 		o.enemies.add(e);
 		o.queue.add(e);
 	}
 
-	public static void spawnNow(Enemy e) {
+	public void spawnNow(Enemy e) {
 		o.enemies.add(e);
-		Handler.obj.addObj(e);
+		getState().addObject(e);
 		e.init();
 	}
 	
@@ -197,17 +195,18 @@ public class WaveManager {
 	float nextTimer = 0f;
 	boolean done;
 	
-	public void update() {
+	public void update(float delta, float time) {
 		timer += Game.deltaTime;
 		if (timer > nextTimer) {
 			nextTimer = Math.abs(engine.BasicMath.randInt(1, 3)-(wave/50f));
 			timer = 0;
 			if (!queue.isEmpty()) {
 				Enemy e = queue.get(0);
-				Handler.obj.addObj(e);
+				getState().addObject(e);
 				e.init();
 				queue.remove(0);
 			}
+
 			//Check if all enemies destroyed
 			if (enemies.isEmpty() && !done){
 				endWave();

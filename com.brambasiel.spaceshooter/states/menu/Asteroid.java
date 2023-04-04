@@ -3,20 +3,18 @@ package states.menu;
 import java.awt.image.BufferedImage;
 
 import engine.Game;
+import engine.SpriteLoader;
+import objects.GameObject;
 
-public class Asteroid {
+public class Asteroid extends GameObject {
 	
-	float x,y;
-	float speed;
-	int size;
-	BufferedImage sprite;
+	private float speed;
+	private int size;
+	private BufferedImage sprite;
 	
 	public Asteroid() {
-		x = engine.BasicMath.randFloat(Game.size.x);
-		y = engine.BasicMath.randFloat(Game.size.y);
-		size = engine.BasicMath.randInt(14, 14*4);
-		speed = size;
-		sprite = SpriteLoader.asteroids[engine.BasicMath.randInt(SpriteLoader.asteroids.length)];
+		super(0.f,0.f);
+		restart();
 	}
 	
 	void restart() {
@@ -24,7 +22,7 @@ public class Asteroid {
 		speed = engine.BasicMath.randFloat(18f, 32f);
 		size = engine.BasicMath.randInt(14, 14*4);
 		y = engine.BasicMath.randFloat(-Game.h-size);
-		sprite = SpriteLoader.asteroids[engine.BasicMath.randInt(SpriteLoader.asteroids.length)];
+		sprite = SpriteLoader.getRandomAsteroidTexture();
 	}
 	
 	public void update() {
