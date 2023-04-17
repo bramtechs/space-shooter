@@ -6,7 +6,7 @@ import java.util.List;
 
 import engine.Game;
 import gui.Widget;
-import gui.primitives.Label;
+import com.brambasiel.spaceshooter.gui.Label;
 import objects.player.PlayerData;
 import objects.shop.items.*;
 import objects.shop.items.MaxHealth;

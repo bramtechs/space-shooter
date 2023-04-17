@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import audio.AudioPlayer;
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import objects.GameObject;
 import objects.Handler;
@@ -38,14 +39,14 @@ public class Explosion extends GameObject { //Boom!!!
 		Color c;
 		Particle(int x, int y, float size){
 			super(x,y,ID.Particle);
-			vely = engine.BasicMath.randFloat(-force, force);
-			velx = engine.BasicMath.randFloat(-force, force);
+			vely = BasicMath.randFloat(-force, force);
+			velx = BasicMath.randFloat(-force, force);
 			c = start;
 			this.size = size;
 		}
 		@Override
 		public void update() {
-			time += 1f/lifetime+engine.BasicMath.randFloat(-0.1f, 0.1f);
+			time += 1f/lifetime+ BasicMath.randFloat(-0.1f, 0.1f);
 			x += velx;
 			y += vely;
 			if (velx >= 0f)

@@ -3,9 +3,10 @@ package objects.enemies.bosses;
 import java.awt.Color;
 import java.awt.Point;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import graphics.SpriteLoader;
-import gui.primitives.Healthbar;
+import com.brambasiel.spaceshooter.gui.Healthbar;
 import objects.Handler;
 import objects.ID;
 import objects.WaveManager;
@@ -39,7 +40,7 @@ public class MegaShip extends Enemy {
 	@Override
 	public void update() {
 		
-		float shootsp = engine.BasicMath.clamp(WaveManager.o.wave/5f,1,1.5f);
+		float shootsp = BasicMath.clamp(WaveManager.o.wave/5f,1,1.5f);
 		if (timer > 2f/shootsp/4f && state == State.Bullet) {
 			timer = 0f;
 			shoot();
@@ -51,7 +52,7 @@ public class MegaShip extends Enemy {
 		}
 		y += speed*0.03f;
 		
-		timer2 += Game.deltaTime+engine.BasicMath.randFloat(0.02f);
+		timer2 += Game.deltaTime+ BasicMath.randFloat(0.02f);
 		
 		//Change state
 		if (health < maxHealth/2f) {
@@ -95,7 +96,7 @@ public class MegaShip extends Enemy {
 	}
 
 	void shoot() {
-		float xx = engine.BasicMath.randFloat(w);
+		float xx = BasicMath.randFloat(w);
 		Bullet b = new Bullet(x+2+w-xx, y+h+5, true, Color.yellow, 10f,3,14f);
 		Bullet bl = new Bullet(x+2+xx, y+h+5, true, Color.red, 20f,5,20f);
 		
@@ -117,8 +118,8 @@ public class MegaShip extends Enemy {
 	@Override
 	public void destroy() {
 		for (int i = 0; i < 7; i++) {
-			int xx = (int)engine.BasicMath.randFloat(x, x+w);
-			int yy = (int)engine.BasicMath.randFloat(y, y+h);
+			int xx = (int) BasicMath.randFloat(x, x+w);
+			int yy = (int) BasicMath.randFloat(y, y+h);
 			Explosion e = new Explosion(new Point(xx,yy),20,70,5,12f,Color.ORANGE);
 			Handler.obj.deleteObj(this);
 			Handler.obj.addObj(e);

@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import engine.Game;
 import gui.Widget;
 import gui.WidgetManager;
-import gui.fonts.FontLoader;
-import gui.fonts.FontRenderer;
 
 public class EnemySlot extends Widget {
 

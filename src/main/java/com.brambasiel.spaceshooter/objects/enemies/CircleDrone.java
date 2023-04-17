@@ -1,5 +1,6 @@
 package objects.enemies;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import graphics.SpriteLoader;
 import objects.Handler;
@@ -23,7 +24,7 @@ public class CircleDrone extends Enemy {
 
 	@Override
 	public void init() {
-		float r = engine.BasicMath.randFloat(70,84+radius);
+		float r = BasicMath.randFloat(70,84+radius);
 		for (int i = 0; i < amount; i++) {
 			CircleBullet b = new CircleBullet(x, y, r, 3f, 8, 0.1f, (amount) * i);
 			pieces[i] = b;
@@ -33,7 +34,7 @@ public class CircleDrone extends Enemy {
 
 	@Override
 	public void respawn() {
-		x = engine.BasicMath.randFloat(50, Game.w-50);
+		x = BasicMath.randFloat(50, Game.w-50);
 		y = -radius;
 	}
 	
@@ -45,7 +46,7 @@ public class CircleDrone extends Enemy {
 		// Relocation
 		if (respawn) {
 			respawn = false;
-			x = engine.BasicMath.randFloat(50, Game.w - 50);
+			x = BasicMath.randFloat(50, Game.w - 50);
 			y = 20;
 		}
 

@@ -1,6 +1,8 @@
 package objects.projectiles;
 
 import java.awt.Color;
+
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import objects.Handler;
 import objects.player.Player;
@@ -17,7 +19,7 @@ public class HomingBullet extends Bullet {
 			xx = Player.obj.x;
 			yy = Player.obj.y;
 		}
-		angle = Math.toRadians(engine.BasicMath.getAngle((int)x, (int)y, (int)xx,(int)yy));
+		angle = Math.toRadians(BasicMath.getAngle((int)x, (int)y, (int)xx,(int)yy));
 	}
 	
 	@Override

@@ -1,44 +1,39 @@
-package objects;
+package com.brambasiel.spaceshooter.objects;
 
-import java.awt.Graphics2D;
-import states.State;
+import com.brambasiel.spaceshooter.states.State;
 
-public abstract class GameObject<T> {
-	public float x, y;
+public abstract class GameObject implements RenderUpdateable {
+    public float x, y;
 
-	private State state;
-	private boolean isActive;
-	
-	public GameObject() {
-		this.isActive = true;
-	}
+    private State state;
+    private boolean isActive;
 
-	@SuppressWarnings("unchecked")
-	public T position(float x, float y) {
-		this.x = x;
-		this.y = y;
-		return (T) this;
-	}
-	
-	public void attach(State state) {
-		this.state = state;
-	}
+    public GameObject(float x, float y) {
+        this.isActive = true;
+        this.x = x;
+        this.y = y;
+    }
 
-	public void selfDestruct() {
-		isActive = false;
-	}
+    public GameObject() {
+        this(0, 0);
+    }
 
-	public boolean isActive() {
-		return this.isActive;
-	}
+    public void attach(State state) {
+        this.state = state;
+    }
 
-	public State getState() {
-		if (state == null) {
-			throw new IllegalStateException("GameObject isn't attached to any state!");
-		}
-		return state;
-	}
+    public void selfDestruct() {
+        isActive = false;
+    }
 
-	public abstract void update(float delta, float timePassed);
-	public abstract void draw(Graphics2D graph);
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    public State getState() {
+        if (state == null) {
+            throw new IllegalStateException("GameObject isn't attached to any state!");
+        }
+        return state;
+    }
 }

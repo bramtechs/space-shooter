@@ -3,9 +3,10 @@ package objects.enemies.bosses;
 import java.awt.Color;
 import java.awt.Point;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import graphics.SpriteLoader;
-import gui.primitives.Healthbar;
+import com.brambasiel.spaceshooter.gui.Healthbar;
 import objects.Handler;
 import objects.ID;
 import objects.WaveManager;
@@ -40,7 +41,7 @@ public class MegaSinusDrone extends Enemy {
 	float roundTimer;
 	@Override
 	public void update() {
-		float shootsp = engine.BasicMath.clamp(WaveManager.o.wave / 5f, 1, 1.5f);
+		float shootsp = BasicMath.clamp(WaveManager.o.wave / 5f, 1, 1.5f);
 		if (timer > 2f / shootsp / 4f && shoot) {
 			timer = 0f;
 			if (state == State.Bullet) {
@@ -116,8 +117,8 @@ public class MegaSinusDrone extends Enemy {
 	@Override
 	public void destroy() {
 		for (int i = 0; i < 7; i++) {
-			int xx = (int) engine.BasicMath.randFloat(x, x + w);
-			int yy = (int) engine.BasicMath.randFloat(y, y + h);
+			int xx = (int) BasicMath.randFloat(x, x + w);
+			int yy = (int) BasicMath.randFloat(y, y + h);
 			Explosion e = new Explosion(new Point(xx, yy), 20, 70, 5, 12f, Color.ORANGE);
 			Handler.obj.deleteObj(this);
 			Handler.obj.addObj(e);

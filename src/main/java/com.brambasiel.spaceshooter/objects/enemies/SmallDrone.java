@@ -2,6 +2,7 @@ package objects.enemies;
 
 import java.awt.Color;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import graphics.SpriteLoader;
 import objects.Handler;
@@ -20,7 +21,7 @@ public class SmallDrone extends Enemy {
 	@Override
 	public void update() {
 		
-		float shootsp = engine.BasicMath.clamp(WaveManager.o.wave/5f,1,5);
+		float shootsp = BasicMath.clamp(WaveManager.o.wave/5f,1,5);
 		if (timer > 6f/shootsp) {
 			timer = 0f;
 			shoot();
@@ -31,7 +32,7 @@ public class SmallDrone extends Enemy {
 		//Relocation
 		if (respawn) {
 			respawn = false;
-			x = engine.BasicMath.randFloat(50, Game.w-50);
+			x = BasicMath.randFloat(50, Game.w-50);
 			y = 20;
 		}
 		

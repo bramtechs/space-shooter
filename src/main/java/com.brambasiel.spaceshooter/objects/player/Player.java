@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import audio.AudioPlayer;
-import engine.BasicMath;
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
-import gui.primitives.Healthbar;
-import gui.primitives.Label;
+import com.brambasiel.spaceshooter.gui.Healthbar;
+import com.brambasiel.spaceshooter.gui.Label;
 import input.Input;
 import objects.Ship;
 import objects.gameover.GameOverScreen;

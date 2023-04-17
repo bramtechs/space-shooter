@@ -7,9 +7,7 @@ import engine.Game;
 import graphics.SpriteLoader;
 import gui.Widget;
 import gui.WidgetManager;
-import gui.fonts.FontLoader;
-import gui.fonts.FontRenderer;
-import gui.primitives.Label;
+import com.brambasiel.spaceshooter.gui.Label;
 import objects.player.PlayerData;
 
 public class GameOverScreen extends Widget {

@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
-import gui.primitives.Label;
-import gui.primitives.Message;
+import com.brambasiel.spaceshooter.gui.Label;
+import com.brambasiel.spaceshooter.gui.Message;
 import objects.enemies.CircleDrone;
 import objects.enemies.DualDrone;
 import objects.enemies.Enemy;
@@ -164,11 +165,11 @@ public class WaveManager extends GameObject {
 	
 	void randomWave() {
 		int left = (int)(wave*1.5f)+1;
-		for (int i = 0; i < engine.BasicMath.randInt(0, left); i++) {
+		for (int i = 0; i < BasicMath.randInt(0, left); i++) {
 			spawn(new SmallDrone());
 			left--;
 		}
-		for (int i = 0; i < engine.BasicMath.randInt(0, left); i++) {
+		for (int i = 0; i < BasicMath.randInt(0, left); i++) {
 			spawn(new DualDrone());
 		}
 		for (int i = 0; i < left; i++) {
@@ -198,7 +199,7 @@ public class WaveManager extends GameObject {
 	public void update(float delta, float time) {
 		timer += Game.deltaTime;
 		if (timer > nextTimer) {
-			nextTimer = Math.abs(engine.BasicMath.randInt(1, 3)-(wave/50f));
+			nextTimer = Math.abs(BasicMath.randInt(1, 3)-(wave/50f));
 			timer = 0;
 			if (!queue.isEmpty()) {
 				Enemy e = queue.get(0);

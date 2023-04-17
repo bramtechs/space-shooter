@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 
 import audio.AudioPlayer;
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import objects.GameObject;
 import objects.Handler;
@@ -46,7 +47,7 @@ public abstract class Enemy extends GameObject{
 	public void update() {
 		X = (int)x;
 		Y = (int)y;
-		timer += Game.deltaTime+engine.BasicMath.randFloat(0.02f)+(WaveManager.o.wave/10000f);
+		timer += Game.deltaTime+ BasicMath.randFloat(0.02f)+(WaveManager.o.wave/10000f);
 		hit.move((int)x, (int)y,w,h);
 		checkPlayerCollision();
 		//Move back to top when to low.
@@ -73,7 +74,7 @@ public abstract class Enemy extends GameObject{
 			flipTimer -= Game.deltaTime;
 			if (flipTimer < 0 || x < 0 || x > Game.w-w*1.5f) {
 				right = !right;
-				flipTimer = engine.BasicMath.randInt(1, 5);
+				flipTimer = BasicMath.randInt(1, 5);
 			}
 			x += right ? -horizSpeed:horizSpeed;
 		}
@@ -92,7 +93,7 @@ public abstract class Enemy extends GameObject{
 	}
 	
 	public void respawn() {
-		x = engine.BasicMath.randFloat(50, Game.w-50);
+		x = BasicMath.randFloat(50, Game.w-50);
 		y = -20;
 	}
 	

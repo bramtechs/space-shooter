@@ -2,6 +2,7 @@ package objects.enemies;
 
 import java.awt.Color;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import graphics.SpriteLoader;
 import objects.Handler;
@@ -19,7 +20,7 @@ public class DualDrone extends Enemy {
 	@Override
 	public void update() {
 		
-		float shootsp = engine.BasicMath.clamp(WaveManager.o.wave/5f,1,3);
+		float shootsp = BasicMath.clamp(WaveManager.o.wave/5f,1,3);
 		if (timer > 6f/shootsp) {
 			timer = 0f;
 			shoot();

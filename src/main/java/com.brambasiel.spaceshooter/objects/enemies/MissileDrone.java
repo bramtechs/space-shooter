@@ -3,6 +3,7 @@ package objects.enemies;
 import java.awt.Color;
 import java.awt.Point;
 
+import com.brambasiel.spaceshooter.BasicMath;
 import engine.Game;
 import graphics.SpriteLoader;
 import objects.Handler;
@@ -38,7 +39,7 @@ public class MissileDrone extends Enemy {
 	public void update() {
 		X = (int) x;
 		Y = (int) y;
-		timer += Game.deltaTime + engine.BasicMath.randFloat(0.02f) + (WaveManager.o.wave / 10000f);
+		timer += Game.deltaTime + BasicMath.randFloat(0.02f) + (WaveManager.o.wave / 10000f);
 		hit.move((int) x, (int) y, w, h);
 		checkPlayerCollision();
 		
@@ -49,7 +50,7 @@ public class MissileDrone extends Enemy {
 		// Relocation
 		if (respawn) {
 			respawn = false;
-			x = engine.BasicMath.randFloat(50, Game.w - 50);
+			x = BasicMath.randFloat(50, Game.w - 50);
 			y = -50;
 		}
 		thrust.move(x, y);
@@ -81,7 +82,7 @@ public class MissileDrone extends Enemy {
 		Game.g.setColor(Color.orange);
 		Game.g.drawImage(SpriteLoader.missiledrone, X, Y, (int) w, (int) h, null);
 
-		warningTimer += Game.deltaTime*engine.BasicMath.randFloat(0.9f, 1.1f);
+		warningTimer += Game.deltaTime* BasicMath.randFloat(0.9f, 1.1f);
 		id = warningTimer < 0.5f ? 0 : 1;
 
 		if (timer < spawnDelay) {
