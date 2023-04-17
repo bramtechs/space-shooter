@@ -1,12 +1,13 @@
 package com.brambasiel.spaceshooter.states;
 
 import com.brambasiel.spaceshooter.objects.GameObject;
+import com.brambasiel.spaceshooter.objects.RenderUpdateable;
+
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("rawtypes")
-public abstract class State {
+public abstract class State implements RenderUpdateable {
 
 	private final List<GameObject> gameObjects;
 
@@ -19,6 +20,7 @@ public abstract class State {
 		gameObjects.add(obj);
 	}
 
+	@Override
 	public void update(float delta, float time) {
 		gameObjects.forEach(obj -> {
 			obj.update(delta, time);
@@ -29,6 +31,7 @@ public abstract class State {
 		});
 	}
 
+	@Override
 	public void draw(Graphics2D graph) {
 		gameObjects.forEach(obj -> {
 			obj.draw(graph);

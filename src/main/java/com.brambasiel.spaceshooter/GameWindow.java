@@ -1,20 +1,22 @@
 package com.brambasiel.spaceshooter;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
 public class GameWindow extends JFrame implements WindowListener {
 
+    private static Logger logger = Logger.getLogger(GameWindow.class.getName());
     private static final long serialVersionUID = -8325159550353636036L;
     public static final int WIDTH = 360;
     public static final int HEIGHT = 640;
+    private Game game;
 
     public GameWindow(float scale) {
         super("Java Game!");
-        add(g);
         Dimension size = new Dimension(w, h);
         //gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         setAlwaysOnTop(true);
@@ -29,7 +31,8 @@ public class GameWindow extends JFrame implements WindowListener {
         System.out.println("Window created");
 
         // create the game
-        Game game = new Game(scale);
+        game = new Game(scale);
+        add(game);
     }
 
     @Override
@@ -39,8 +42,8 @@ public class GameWindow extends JFrame implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        Game.print("close");
-        Game.running = false;
+        logger.info("Closed window");
+        game.quit();
     }
 
     @Override
@@ -78,6 +81,10 @@ public class GameWindow extends JFrame implements WindowListener {
 
     public void setFullscreen() {
 
+    }
+
+    public Point getCenter() {
+        return new Point(WIDTH / 2, HEIGHT / 2);
     }
 
     public static void main(String[] args) {
